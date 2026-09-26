@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Bloombela.co — Rosas y Bolsos de Perlas en Rionegro</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html {
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+  body {
+    margin: 0;
+    background: #faf8f6;
+    overflow-x: hidden;
+    max-width: 100vw;
+    min-height: 100dvh;
+  }
+  #root { overflow-x: hidden; max-width: 100vw; }
+  img { max-width: 100%; height: auto; }
+  .font-serif { font-family: Georgia, 'Times New Roman', serif; }
+
+  .floating-wa {
+    position: fixed;
+    z-index: 40;
+    width: 3rem;
+    height: 3rem;
+    bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    right:  calc(1.25rem + env(safe-area-inset-right,  0px));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: #25D366;
+    color: #ffffff;
+    box-shadow: 0 12px 28px -8px rgba(0, 0, 0, .35);
+    transition: background-color .2s ease, transform .2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .floating-wa:hover { background-color: #20ba5a; transform: scale(1.05); }
+  .floating-wa svg { width: 1.5rem; height: 1.5rem; }
+  @media (min-width: 640px) {
+    .floating-wa { width: 3.5rem; height: 3.5rem; }
+    .floating-wa svg { width: 1.75rem; height: 1.75rem; }
+  }
+
+  .topbar-icon { width: 1rem; height: 1rem; flex-shrink: 0; }
+
+  @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+  .animate-fadeIn { animation: fadeIn .25s ease-out; }
+
+  svg { max-width: 100%; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<noscript><div style="padding:40px;text-align:center;font-family:sans-serif;color:#1a1a1a">Esta página necesita JavaScript activado para funcionar. Por favor actívalo en tu navegador.</div></noscript>
+<script>
+  setTimeout(function () {
+    var root = document.getElementById('root');
+    if (root && root.children.length === 0) {
+      root.innerHTML =
+        '<div style="min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:Georgia,\'Times New Roman\',serif;background:#faf8f6;color:#1a1a1a;">' +
+        '<div style="max-width:420px;">' +
+        '<h2 style="font-weight:400;margin:0 0 12px;font-size:22px;">No se pudo cargar la página</h2>' +
+        '<p style="font-size:14px;color:#666;margin:0 0 24px;line-height:1.5;">Revisa tu conexión a internet e intenta de nuevo. Si el problema persiste, escríbenos por WhatsApp.</p>' +
+        '<button onclick="window.location.reload()" style="background:#1c1c1c;color:#fff;border:none;padding:14px 28px;border-radius:999px;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin:0 8px 8px 0;cursor:pointer;">Reintentar</button>' +
+        '<a href="https://wa.me/573137388363" style="display:inline-block;background:#25D366;color:#fff;padding:14px 28px;border-radius:999px;font-size:12px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;">WhatsApp</a>' +
+        '</div></div>';
+    }
+  }, 6000);
+</script>
+<script>
+var __defProp = Object.defineProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+const { useState, useEffect, Component } = React;
+const CONFIG = {
+  BUSINESS_NAME: "Bloombela.co",
+  TAGLINE: "Peque\xF1os gestos, grandes recuerdos. \u2728",
+  WHATSAPP_NUMBER: "573137388363",
+  WHATSAPP_DISPLAY: "+57 313 7388363",
+  INSTAGRAM_URL: "https://instagram.com/bloombela.co",
+  INSTAGRAM_HANDLE: "@bloombela.co",
+  BUSINESS_HOURS: "9:00 a. m. - 6:00 p. m. (Lunes a Domingo)",
+  CITY: "Rionegro",
+  DEPARTMENT: "Antioquia",
+  COUNTRY: "Colombia",
+  DELIVERY_AREA: "\xDAnicamente en Rionegro, Antioquia, Colombia (Casco urbano, San Antonio, Porvenir, Llanogrande y sectores cercanos).",
+  DELIVERY_PRICE: 0,
+  EMAIL: "bloombela.gk@gmail.com",
+  NEQUI_NUMBER: "313 738 8363",
+  HERO_IMAGE: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&q=80&w=900",
+  ABOUT_IMAGE: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=900",
+  CATEGORY_IMAGES: {
+    rosas: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=900",
+    bolsos: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&q=80&w=900",
+    combos: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=900"
+  },
+  INSTAGRAM_IMAGES: [
+    "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&q=80&w=700",
+    "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&q=80&w=700",
+    "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=700",
+    "https://images.unsplash.com/photo-1594223274512-ad48037395c1?auto=format&fit=crop&q=80&w=700"
+  ]
+};
+const sanitizeInput = (str) => {
+  if (typeof str !== "string") return "";
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;").trim();
+};
+const INITIAL_PRODUCTS = [
+  { id: "rosa-eterna", name: "Rosa Eterna en C\xFApula de Cristal Lumi\xE8re", category: "rosas", price: 125e3, formattedPrice: "$125.000", image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&q=80&w=900", description: "Rosa preservada de alta gama que perdura m\xE1s de un a\xF1o sin agua. Presentada en c\xFApula de cristal artesanal con base de madera y sutil iluminaci\xF3n LED.", badge: "M\xE1s Vendido", featured: true, variants: { colors: ["Rojo Cl\xE1sico", "Rosa Pastel", "Blanco Marfil", "Azul Real", "Dorado Champagne"], sizes: ["Est\xE1ndar (20cm)", "Grande (28cm)"], presentations: ["C\xFApula de Cristal", "Caja Acr\xEDlica de Lujo"] } },
+  { id: "rosa-clasica", name: "Caja de Rosas Parisien Velvet", category: "rosas", price: 15e4, formattedPrice: "$150.000", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=900", description: "Caja cil\xEDndrica de dise\xF1o franc\xE9s con 12 rosas frescas de exportaci\xF3n, acompa\xF1adas de follajes selectos y tarjeta de dedicatoria caligrafiada.", badge: "Exclusivo", featured: true, variants: { colors: ["Rosa Empolvado", "Rojo Pasi\xF3n", "Blanco Marfil", "Combinado Rom\xE1ntico"], sizes: ["12 Rosas", "24 Rosas"], presentations: ["Caja Cil\xEDndrica Velvet", "Caja Cuadrada Minimalista"] } },
+  { id: "ramo-rosas", name: "Ramo Armon\xEDa Rom\xE1ntica", category: "rosas", price: 11e4, formattedPrice: "$110.000", image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&q=80&w=900", description: "Imponente atado de rosas frescas envuelto en papel coreano de alta gama con lazo de seda importada. El detalle perfecto para enamorar.", badge: "Tendencia", featured: true, variants: { colors: ["Rosa Suave", "Rojo Intenso", "Blanco Puro", "Melocot\xF3n"], sizes: ["12 Rosas", "24 Rosas", "36 Rosas"], presentations: ["Papel Coreano Premium", "Papel Kraft Elegante"] } },
+  { id: "bolso-perla-clasico", name: "Bolso Perla Cl\xE1sico Lumi\xE8re", category: "bolsos", price: 18e4, formattedPrice: "$180.000", image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&q=80&w=900", description: "Accesorio de lujo tejido a mano con cuentas de perlas acr\xEDlicas de brillo excepcional. Incluye forro satinado y cadena dorada removible.", badge: "Alta Costura", featured: true, variants: { colors: ["Blanco Perla", "Marfil Neutro", "Rosa Champagne"], sizes: ["\xDAnico (Mediano 18x12cm)"], presentations: ["Cl\xE1sico Cuadrado", "Efecto Rombo"] } },
+  { id: "bolso-perla-mini", name: "Mini Bolso Perla Party", category: "bolsos", price: 14e4, formattedPrice: "$140.000", image: "https://images.unsplash.com/photo-1594223274512-ad48037395c1?auto=format&fit=crop&q=80&w=900", description: "Dise\xF1o compacto y sofisticado ideal para cenas rom\xE1nticas y ocasiones especiales. Una joya que realza cualquier atuendo.", badge: "Elegante", featured: false, variants: { colors: ["Blanco Nacarado", "Dorado Sutil"], sizes: ["Mini (14x10cm)"], presentations: ["Asa Circular de Perlas", "Cierre Magn\xE9tico"] } },
+  { id: "bolso-perla-elegance", name: "Bolso Perla Grande Audrey", category: "bolsos", price: 22e4, formattedPrice: "$220.000", image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&q=80&w=900", description: "Obra de arte en perlas con estructura r\xEDgida y gran capacidad. Elegancia atemporal inspirada en el glamour cl\xE1sico.", badge: "Edici\xF3n Limitada", featured: true, variants: { colors: ["Blanco Cl\xE1sico", "Rosa Empolvado"], sizes: ["Grande (22x15cm)"], presentations: ["Trenzado Artesanal de Lujo"] } },
+  { id: "combo-rosa-bolso", name: "Combo Imperial: Rosa Eterna + Bolso Perla", category: "combos", price: 28e4, formattedPrice: "$280.000", image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=900", description: "El regalo supremo. Combina nuestra exclusiva C\xFApula con Rosa Eterna y el Bolso de Perlas Cl\xE1sico en una presentaci\xF3n inolvidable.", badge: "Ahorra 15%", featured: true, variants: { colors: ["Rojo y Blanco Perla", "Rosa Pastel y Marfil"], sizes: ["Est\xE1ndar Completo"], presentations: ["Caja de Lujo con Mo\xF1o Satinado"] } },
+  { id: "combo-especial", name: "Combo Rom\xE1ntico: Ramo Parisino + Tarjeta de Lujo", category: "combos", price: 19e4, formattedPrice: "$190.000", image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&q=80&w=900", description: "Ramo de 18 rosas frescas con detalles de chocolates finos y tarjeta personalizada escrita a mano con caligraf\xEDa.", badge: "Especial Aniversario", featured: false, variants: { colors: ["Rojo Pasi\xF3n", "Rosa Rom\xE1ntico"], sizes: ["Mediano", "Grande"], presentations: ["Caja Regalo Premium"] } }
+];
+const Icon = ({ name, className = "w-5 h-5" }) => {
+  const common = { width: 24, height: 24, className: `shrink-0 ${className}`, "aria-hidden": "true", focusable: "false" };
+  switch (name) {
+    case "search": return React.createElement("svg", { ...common, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" }));
+    case "shopping-bag": return React.createElement("svg", { ...common, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", d: "M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" }));
+    case "whatsapp": return React.createElement("svg", { ...common, fill: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { d: "M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.198-.198.347-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" }));
+    case "menu": return React.createElement("svg", { ...common, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", d: "M4 6h16M4 12h16M4 18h16" }));
+    case "close": return React.createElement("svg", { ...common, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", d: "M6 18L18 6M6 6l12 12" }));
+    case "trash": return React.createElement("svg", { ...common, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" }));
+    case "heart": return React.createElement("svg", { ...common, fill: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { d: "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" }));
+    case "map-pin": return React.createElement("svg", { ...common, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", d: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" }), React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", d: "M15 11a3 3 0 11-6 0 3 3 0 016 0z" }));
+    case "clock": return React.createElement("svg", { ...common, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", d: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" }));
+    case "shield": return React.createElement("svg", { ...common, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", d: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" }));
+    case "truck": return React.createElement("svg", { ...common, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", d: "M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" }), React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", d: "M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" }));
+    case "arrow-right": return React.createElement("svg", { ...common, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", d: "M14 5l7 7m0 0l-7 7m7-7H3" }));
+    case "star": return React.createElement("svg", { ...common, fill: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { d: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" }));
+    case "rose": return React.createElement("svg", { ...common, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.2", d: "M12 3c2 1 3.5 2.8 3.5 5 0 2.5-1.6 4-3.5 4s-3.5-1.5-3.5-4C8.5 5.8 10 4 12 3zM12 12v9m0-9c-2.5 0-5 1.2-5 3.5M12 12c2.5 0 5 1.2 5 3.5" }), React.createElement("circle", { cx: "12", cy: "8", r: "1", fill: "currentColor", stroke: "none" }));
+    case "gift": return React.createElement("svg", { ...common, fill: "none", stroke: "currentColor", viewBox: "0 0 24 24" }, React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "1.5", d: "M20 12v9H4v-9M2 7h20v5H2V7zM12 22V7M12 7C9.5 7 7 6 7 3.5S9.5 1 12 3s2.5 4 0 4zm0 0c2.5 0 5-1 5-3.5S14.5 1 12 3s-2.5 4 0 4z" }));
+    default: return null;
+  }
+};
+const VISUAL_PALETTES = {
+  rosas: "from-[#f6dfe3] via-[#eecfd4] to-[#c98a95]",
+  bolsos: "from-[#f4f0ec] via-[#e9ddce] to-[#b39d7f]",
+  combos: "from-[#f6dfe3] via-[#e9ddce] to-[#9a5b65]"
+};
+const VISUAL_ICONS = { rosas: "rose", bolsos: "shopping-bag", combos: "gift" };
+const ProductVisual = ({ category = "rosas", className = "" }) => React.createElement("div", { className: `relative flex items-center justify-center overflow-hidden bg-gradient-to-br ${VISUAL_PALETTES[category] || VISUAL_PALETTES.rosas} ${className}` }, React.createElement("div", { className: "absolute inset-0 opacity-25 bg-[radial-gradient(rgba(255,255,255,0.9)_1px,transparent_1px)] [background-size:18px_18px]" }), React.createElement(Icon, { name: VISUAL_ICONS[category] || "rose", className: "relative w-1/4 h-1/4 min-w-[32px] min-h-[32px] max-w-[96px] max-h-[96px] text-white drop-shadow-md" }));
+const ProductImage = ({ src, category, alt = "", className = "" }) => {
+  const [failed, setFailed] = useState(false);
+  if (!src || failed) return React.createElement(ProductVisual, { category, className });
+  return React.createElement("img", { src, alt, loading: "lazy", decoding: "async", className: `${className} object-cover`, onError: () => setFailed(true) });
+};
+class ErrorBoundary extends Component {
+  constructor() { super(...arguments); __publicField(this, "state", { hasError: false }); }
+  static getDerivedStateFromError() { return { hasError: true }; }
+  componentDidCatch(error, info) { console.error("ErrorBoundary:", error, info); }
+  render() {
+    if (this.state.hasError) {
+      return React.createElement("div", { className: "min-h-[100dvh] flex items-center justify-center bg-[#faf8f6] p-6 text-center" }, React.createElement("div", { className: "max-w-md bg-white p-8 rounded-3xl border border-[#eadece] shadow-xl" }, React.createElement("h2", { className: "font-serif text-2xl text-[#1a1a1a] mb-3" }, "Algo sali\xF3 mal"), React.createElement("p", { className: "text-sm text-[#666] mb-6" }, "Hemos encontrado un inconveniente temporal. Por favor recarga la p\xE1gina."), React.createElement("button", { onClick: () => window.location.reload(), className: "bg-[#1c1c1c] text-white px-8 py-3 rounded-full text-xs uppercase tracking-widest" }, "Recargar Sitio")));
+    }
+    return this.props.children;
+  }
+}
+function App() {
+  var _a, _b, _c;
+  const [activeTab, setActiveTab] = useState("home");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [currentProduct, setCurrentProduct] = useState(INITIAL_PRODUCTS[0]);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedPresentation, setSelectedPresentation] = useState("");
+  const [productQuantity, setProductQuantity] = useState(1);
+  const [customMessage, setCustomMessage] = useState("");
+  const [recipientName, setRecipientName] = useState("");
+  const [selectedOccasion, setSelectedOccasion] = useState("Cumplea\xF1os");
+  const [reviews, setReviews] = useState(() => { try { const s = localStorage.getItem("bloombela_reviews"); return s ? JSON.parse(s) : []; } catch (e) { return []; } });
+  const [newReviewName, setNewReviewName] = useState("");
+  const [newReviewComment, setNewReviewComment] = useState("");
+  const [newReviewRating, setNewReviewRating] = useState(5);
+  const [reviewSuccessMessage, setReviewSuccessMessage] = useState(false);
+  const [cart, setCart] = useState(() => { try { const s = localStorage.getItem("bloombela_cart"); return s ? JSON.parse(s) : []; } catch (e) { return []; } });
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [checkoutForm, setCheckoutForm] = useState({ fullName: "", whatsapp: "", address: "", neighborhood: "", reference: "", deliveryDate: "", timeSlot: "Ma\xF1ana (9:00 a.m. - 1:00 p.m.)", note: "", paymentMethod: `Nequi (${CONFIG.NEQUI_NUMBER})` });
+  useEffect(() => {
+    const anyOpen = isCartOpen || isCheckoutOpen || isMobileMenuOpen;
+    if (anyOpen) { const prev = document.body.style.overflow; document.body.style.overflow = "hidden"; return () => { document.body.style.overflow = prev; }; }
+  }, [isCartOpen, isCheckoutOpen, isMobileMenuOpen]);
+  useEffect(() => { try { localStorage.setItem("bloombela_cart", JSON.stringify(cart)); } catch (e) {} }, [cart]);
+  useEffect(() => { try { localStorage.setItem("bloombela_reviews", JSON.stringify(reviews)); } catch (e) {} }, [reviews]);
+  useEffect(() => {
+    var _a2, _b2, _c2;
+    if (currentProduct && currentProduct.variants) {
+      setSelectedColor(((_a2 = currentProduct.variants.colors) == null ? void 0 : _a2[0]) || "");
+      setSelectedSize(((_b2 = currentProduct.variants.sizes) == null ? void 0 : _b2[0]) || "");
+      setSelectedPresentation(((_c2 = currentProduct.variants.presentations) == null ? void 0 : _c2[0]) || "");
+    }
+    setProductQuantity(1); setRecipientName(""); setCustomMessage(""); setSelectedOccasion("Cumplea\xF1os");
+  }, [currentProduct]);
+  const cartSubtotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  const shippingTotal = CONFIG.DELIVERY_PRICE;
+  const cartTotal = cartSubtotal + shippingTotal;
+  const totalCartCount = cart.reduce((sum, i) => sum + i.quantity, 0);
+  const addToCart = (product, quantity = 1, options = {}) => {
+    const newItem = { cartId: `${product.id}-${options.color || selectedColor || "def"}-${options.size || selectedSize || "def"}-${options.presentation || selectedPresentation || "def"}-${Date.now()}`, productId: sanitizeInput(product.id), name: sanitizeInput(product.name), price: product.price, formattedPrice: product.formattedPrice, category: sanitizeInput(product.category), image: product.image, quantity, color: sanitizeInput(options.color || selectedColor), size: sanitizeInput(options.size || selectedSize), presentation: sanitizeInput(options.presentation || selectedPresentation), recipientName: sanitizeInput(options.recipientName || recipientName), customMessage: sanitizeInput(options.customMessage || customMessage), occasion: sanitizeInput(options.occasion || selectedOccasion) };
+    setCart((prev) => [...prev, newItem]); setIsCartOpen(true);
+  };
+  const removeFromCart = (id) => setCart((p) => p.filter((i) => i.cartId !== id));
+  const updateCartQuantity = (id, delta) => setCart((prev) => prev.map((i) => { if (i.cartId === id) { const n = i.quantity + delta; return n > 0 ? { ...i, quantity: n } : null; } return i; }).filter(Boolean));
+  const handleAddReview = (e) => { e.preventDefault(); const cn = sanitizeInput(newReviewName); const cc = sanitizeInput(newReviewComment); if (!cn || !cc) return; setReviews([{ id: Date.now(), name: cn, comment: cc, rating: Number(newReviewRating), date: "Hace un momento" }, ...reviews]); setNewReviewName(""); setNewReviewComment(""); setReviewSuccessMessage(true); setTimeout(() => setReviewSuccessMessage(false), 4e3); };
+  const handleWhatsAppCheckout = (e) => {
+    if (e) e.preventDefault();
+    const itemsText = cart.map((i) => `\u2022 ${i.name} (Cant: ${i.quantity}) - ${i.formattedPrice}\n  Color: ${i.color || "N/A"} | Tama\xF1o: ${i.size || "N/A"} | Presentaci\xF3n: ${i.presentation || "N/A"}${i.recipientName ? `\n  Para: ${i.recipientName} (${i.occasion})\n  Mensaje: "${i.customMessage}"` : ""}`).join("\n\n");
+    const f = checkoutForm;
+    const message = `Hola ${CONFIG.BUSINESS_NAME}, quiero realizar el siguiente pedido con entrega en Rionegro:\n\n*PRODUCTOS:*\n${itemsText}\n\n*Subtotal:* $${cartSubtotal.toLocaleString()}\n*Env\xEDo:* $${shippingTotal.toLocaleString()}\n*TOTAL:* $${cartTotal.toLocaleString()}\n\n*DATOS DE ENTREGA:*\n\u2022 Nombre: ${sanitizeInput(f.fullName) || "No especificado"}\n\u2022 WhatsApp: ${sanitizeInput(f.whatsapp) || "No especificado"}\n\u2022 Direcci\xF3n: ${sanitizeInput(f.address) || "No especificado"}\n\u2022 Barrio/Sector: ${sanitizeInput(f.neighborhood) || "No especificado"}\n\u2022 Referencia: ${sanitizeInput(f.reference) || "N/A"}\n\u2022 Fecha: ${sanitizeInput(f.deliveryDate) || "Pronto"}\n\u2022 Franja: ${sanitizeInput(f.timeSlot)}\n\u2022 Pago: ${sanitizeInput(f.paymentMethod)}${f.note ? `\n\u2022 Nota: ${sanitizeInput(f.note)}` : ""}\n\nGracias.`;
+    window.open(`https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
+  };
+  const handleBuyNowDirect = (product) => {
+    const message = `Hola ${CONFIG.BUSINESS_NAME}, quiero comprar directamente:\n\n\u2022 ${product.name} (Cant: ${productQuantity}) - ${product.formattedPrice}\n  Color: ${selectedColor || "N/A"} | Tama\xF1o: ${selectedSize || "N/A"} | Presentaci\xF3n: ${selectedPresentation || "N/A"}${recipientName ? `\n  Para: ${recipientName} (${selectedOccasion})\n  Mensaje: "${customMessage}"` : ""}\n\n\xBFMe confirman disponibilidad para entrega en Rionegro, Antioquia?`;
+    window.open(`https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
+  };
+  const filteredProducts = INITIAL_PRODUCTS.filter((p) => (selectedCategory === "all" || p.category === selectedCategory) && (p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.description.toLowerCase().includes(searchQuery.toLowerCase())));
+  return React.createElement("div", { className: "min-h-[100dvh] bg-[#faf8f6] text-[#222222] font-sans antialiased selection:bg-[#f3e2e5] selection:text-[#72383f] overflow-x-hidden w-full max-w-full" },
+    React.createElement("div", { className: "bg-[#1c1c1c] text-[#f4f1ea] text-[10px] sm:text-xs py-2 px-3 text-center tracking-widest font-light flex flex-wrap items-center justify-center gap-2", style: { paddingTop: "max(0.5rem, env(safe-area-inset-top, 0px))" } },
+      React.createElement(Icon, { name: "truck", className: "topbar-icon text-[#d4af37]" }),
+      React.createElement("span", { className: "leading-snug break-words" }, "Env\xEDos exclusivamente en ", React.createElement("strong", { className: "text-white underline underline-offset-4 font-normal" }, "Rionegro, Antioquia"), React.createElement("span", { className: "hidden sm:inline" }, ", Colombia"), " \u2728", React.createElement("span", { className: "hidden md:inline" }, " ", CONFIG.TAGLINE))
+    ),
+    React.createElement("header", { className: "sticky top-0 z-40 bg-[#faf8f6]/95 backdrop-blur-md border-b border-[#eadece] transition-all", style: { top: "env(safe-area-inset-top, 0px)" } },
+      React.createElement("div", { className: "max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2" },
+        React.createElement("button", { onClick: () => setIsMobileMenuOpen(!isMobileMenuOpen), className: "md:hidden p-2 -ml-1 text-[#222] hover:text-[#b3707b] transition-colors", "aria-label": "Abrir men\xFA" }, React.createElement(Icon, { name: isMobileMenuOpen ? "close" : "menu", className: "w-6 h-6" })),
+        React.createElement("div", { onClick: () => setActiveTab("home"), className: "cursor-pointer text-center md:text-left min-w-0" },
+          React.createElement("h1", { className: "font-serif text-xl sm:text-3xl tracking-wider font-normal text-[#1a1a1a] leading-none" }, "Bloombela", React.createElement("span", { className: "text-[#b3707b] font-light" }, ".co")),
+          React.createElement("p", { className: "text-[8px] sm:text-[9px] tracking-[0.3em] uppercase text-[#72383f] font-medium mt-0.5" }, "Elegancia & Regalos")
+        ),
+        React.createElement("nav", { className: "hidden md:flex items-center space-x-8 text-xs font-medium tracking-[0.2em] uppercase text-[#444]" },
+          React.createElement("button", { onClick: () => setActiveTab("home"), className: `transition-colors hover:text-[#b3707b] pb-1 border-b-2 ${activeTab === "home" ? "border-[#b3707b] text-[#b3707b]" : "border-transparent"}` }, "Inicio"),
+          React.createElement("button", { onClick: () => { setActiveTab("catalog"); setSelectedCategory("rosas"); }, className: `transition-colors hover:text-[#b3707b] pb-1 border-b-2 ${activeTab === "catalog" && selectedCategory === "rosas" ? "border-[#b3707b] text-[#b3707b]" : "border-transparent"}` }, "Rosas"),
+          React.createElement("button", { onClick: () => { setActiveTab("catalog"); setSelectedCategory("bolsos"); }, className: `transition-colors hover:text-[#b3707b] pb-1 border-b-2 ${activeTab === "catalog" && selectedCategory === "bolsos" ? "border-[#b3707b] text-[#b3707b]" : "border-transparent"}` }, "Bolsos"),
+          React.createElement("button", { onClick: () => { setActiveTab("catalog"); setSelectedCategory("combos"); }, className: `transition-colors hover:text-[#b3707b] pb-1 border-b-2 ${activeTab === "catalog" && selectedCategory === "combos" ? "border-[#b3707b] text-[#b3707b]" : "border-transparent"}` }, "Combos"),
+          React.createElement("button", { onClick: () => setActiveTab("about"), className: `transition-colors hover:text-[#b3707b] pb-1 border-b-2 ${activeTab === "about" ? "border-[#b3707b] text-[#b3707b]" : "border-transparent"}` }, "Nosotros"),
+          React.createElement("button", { onClick: () => setActiveTab("shipping"), className: `transition-colors hover:text-[#b3707b] pb-1 border-b-2 ${activeTab === "shipping" ? "border-[#b3707b] text-[#b3707b]" : "border-transparent"}` }, "Contacto")
+        ),
+        React.createElement("div", { className: "flex items-center space-x-1 sm:space-x-3" },
+          React.createElement("button", { onClick: () => setIsSearchOpen(!isSearchOpen), className: "p-2 text-[#222] hover:text-[#b3707b] transition-colors", "aria-label": "Buscar" }, React.createElement(Icon, { name: "search", className: "w-5 h-5" })),
+          React.createElement("button", { onClick: () => setIsCartOpen(true), className: "relative p-2 text-[#222] hover:text-[#b3707b] transition-colors", "aria-label": "Carrito" },
+            React.createElement(Icon, { name: "shopping-bag", className: "w-6 h-6" }),
+            totalCartCount > 0 && React.createElement("span", { className: "absolute top-0 right-0 bg-[#b3707b] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-sm" }, totalCartCount)
+          ),
+          React.createElement("a", { href: `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=Hola%20${CONFIG.BUSINESS_NAME},%20quiero%20consultar%20sobre%20sus%20regalos`, target: "_blank", rel: "noopener noreferrer", className: "hidden sm:inline-flex items-center gap-2 bg-[#1c1c1c] hover:bg-[#b3707b] text-white px-4 lg:px-5 py-2.5 rounded-full text-xs font-medium tracking-widest uppercase shadow-sm transition-all" },
+            React.createElement(Icon, { name: "whatsapp", className: "w-4 h-4 text-[#25D366]" }),
+            React.createElement("span", { className: "hidden lg:inline" }, "WhatsApp")
+          )
+        )
+      ),
+      isSearchOpen && React.createElement("div", { className: "bg-[#f4f1ea] border-b border-[#eadece] py-3 px-3 sm:px-4 animate-fadeIn" },
+        React.createElement("div", { className: "max-w-2xl mx-auto flex items-center gap-2 sm:gap-3 bg-white px-3 sm:px-4 py-2.5 rounded-xl border border-[#eadece] shadow-inner" },
+          React.createElement(Icon, { name: "search", className: "w-5 h-5 text-[#888]" }),
+          React.createElement("input", { type: "text", placeholder: "Buscar rosas, bolsos, ramos...", value: searchQuery, onChange: (e) => setSearchQuery(e.target.value), className: "w-full min-w-0 bg-transparent border-none outline-none text-sm text-[#222] placeholder-[#999]", autoFocus: true }),
+          React.createElement("button", { onClick: () => { setActiveTab("catalog"); setIsSearchOpen(false); }, className: "shrink-0 bg-[#1c1c1c] text-white text-xs uppercase tracking-wider px-3 sm:px-4 py-2 rounded-lg hover:bg-[#b3707b] transition-colors" }, "Buscar")
+        )
+      ),
+      isMobileMenuOpen && React.createElement("div", { className: "md:hidden absolute top-full left-0 right-0 bg-[#faf8f6] border-b border-[#eadece] shadow-2xl py-6 px-6 space-y-4 animate-fadeIn max-h-[80dvh] overflow-y-auto" },
+        React.createElement("button", { onClick: () => { setActiveTab("home"); setIsMobileMenuOpen(false); }, className: "block w-full text-left font-serif text-lg py-2 border-b border-[#f0e6e8] text-[#222]" }, "Inicio"),
+        React.createElement("button", { onClick: () => { setActiveTab("catalog"); setSelectedCategory("rosas"); setIsMobileMenuOpen(false); }, className: "block w-full text-left font-serif text-lg py-2 border-b border-[#f0e6e8] text-[#222]" }, "Rosas"),
+        React.createElement("button", { onClick: () => { setActiveTab("catalog"); setSelectedCategory("bolsos"); setIsMobileMenuOpen(false); }, className: "block w-full text-left font-serif text-lg py-2 border-b border-[#f0e6e8] text-[#222]" }, "Bolsos de Perlas"),
+        React.createElement("button", { onClick: () => { setActiveTab("catalog"); setSelectedCategory("combos"); setIsMobileMenuOpen(false); }, className: "block w-full text-left font-serif text-lg py-2 border-b border-[#f0e6e8] text-[#222]" }, "Combos Especiales"),
+        React.createElement("button", { onClick: () => { setActiveTab("about"); setIsMobileMenuOpen(false); }, className: "block w-full text-left font-serif text-lg py-2 border-b border-[#f0e6e8] text-[#222]" }, "Nosotros"),
+        React.createElement("button", { onClick: () => { setActiveTab("shipping"); setIsMobileMenuOpen(false); }, className: "block w-full text-left font-serif text-lg py-2 border-b border-[#f0e6e8] text-[#222]" }, "Contacto y Env\xEDos"),
+        React.createElement("div", { className: "pt-2" },
+          React.createElement("a", { href: `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=Hola%20${CONFIG.BUSINESS_NAME},%20quiero%20hacer%20un%20pedido`, target: "_blank", rel: "noopener noreferrer", className: "w-full flex items-center justify-center gap-3 bg-[#1c1c1c] text-white py-3.5 rounded-xl font-medium text-xs uppercase tracking-widest shadow-lg" },
+            React.createElement(Icon, { name: "whatsapp", className: "w-5 h-5 text-[#25D366]" }),
+            React.createElement("span", null, "Pedir por WhatsApp")
+          )
+        )
+      )
+    ),
+    React.createElement("main", null,
+      activeTab === "home" && React.createElement("div", null,
+        React.createElement("section", { className: "relative bg-[#f4f0ec] py-14 sm:py-20 lg:py-36 overflow-hidden" },
+          React.createElement("div", { className: "absolute inset-0 opacity-15 bg-[radial-gradient(#b3707b_1px,transparent_1px)] [background-size:20px_20px]" }),
+          React.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center" },
+            React.createElement("div", { className: "lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left" },
+              React.createElement("div", { className: "inline-flex items-center gap-2 bg-white/90 backdrop-blur px-4 sm:px-5 py-2 rounded-full text-[10px] sm:text-xs uppercase tracking-[0.2em] text-[#72383f] border border-[#eadece] shadow-sm" }, React.createElement("span", { className: "w-2 h-2 rounded-full bg-[#b3707b] animate-ping" }), "Exclusivo en Rionegro, Antioquia"),
+              React.createElement("h2", { className: "font-serif text-3xl sm:text-5xl lg:text-7xl text-[#1a1a1a] leading-[1.15] font-light" }, "Detalles que convierten ", React.createElement("span", { className: "italic font-normal text-[#9a5b65]" }, "momentos en recuerdos.")),
+              React.createElement("p", { className: "text-sm sm:text-base lg:text-lg text-[#555] font-light max-w-xl mx-auto lg:mx-0 leading-relaxed" }, "Rosas y bolsos de perlas creados para regalar algo realmente especial. ", CONFIG.TAGLINE),
+              React.createElement("div", { className: "flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2" },
+                React.createElement("button", { onClick: () => { setActiveTab("catalog"); setSelectedCategory("all"); }, className: "w-full sm:w-auto bg-[#1c1c1c] hover:bg-[#b3707b] text-white px-7 sm:px-9 py-3.5 sm:py-4 rounded-full text-xs uppercase tracking-[0.25em] font-medium shadow-xl transition-all" }, "VER COLECCI\xD3N"),
+                React.createElement("a", { href: `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=Hola%20${CONFIG.BUSINESS_NAME},%20quiero%20asesor\xEDa`, target: "_blank", rel: "noopener noreferrer", className: "w-full sm:w-auto bg-white hover:bg-[#faf8f6] text-[#1c1c1c] border border-[#dcd0d3] px-7 sm:px-9 py-3.5 sm:py-4 rounded-full text-xs uppercase tracking-[0.25em] font-medium shadow-sm transition-all flex items-center justify-center gap-2" },
+                  React.createElement(Icon, { name: "whatsapp", className: "w-4 h-4 text-[#25D366]" }), "PEDIR POR WHATSAPP"
+                )
+              ),
+              React.createElement("div", { className: "pt-4 sm:pt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 text-[11px] sm:text-xs uppercase tracking-wider text-[#666]" },
+                React.createElement("div", { className: "flex items-center gap-2" }, React.createElement(Icon, { name: "shield", className: "w-4 h-4 text-[#b3707b]" }), React.createElement("span", null, "Calidad Garantizada")),
+                React.createElement("div", { className: "flex items-center gap-2" }, React.createElement(Icon, { name: "clock", className: "w-4 h-4 text-[#b3707b]" }), React.createElement("span", null, CONFIG.BUSINESS_HOURS))
+              )
+            ),
+            React.createElement("div", { className: "lg:col-span-5 relative" },
+              React.createElement("div", { className: "relative mx-auto max-w-md lg:max-w-none" },
+                React.createElement("div", { className: "absolute -inset-4 bg-gradient-to-tr from-[#f3e2e5] to-[#fceeee] rounded-3xl transform rotate-2 filter blur-md opacity-70" }),
+                React.createElement(ProductImage, { src: CONFIG.HERO_IMAGE, category: "rosas", alt: "Rosa Eterna de Lujo", className: "relative rounded-3xl shadow-2xl w-full h-[320px] sm:h-[420px] lg:h-[500px] transform -rotate-1 hover:rotate-0 transition-transform duration-700" })
+              )
+            )
+          )
+        ),
+        React.createElement("section", { className: "py-14 sm:py-20 lg:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" },
+          React.createElement("div", { className: "text-center max-w-2xl mx-auto mb-10 sm:mb-16 space-y-3" },
+            React.createElement("span", { className: "text-xs uppercase tracking-[0.3em] text-[#b3707b] font-semibold" }, CONFIG.BUSINESS_NAME),
+            React.createElement("h3", { className: "font-serif text-3xl sm:text-5xl font-light text-[#1a1a1a]" }, "Nuestras Colecciones"),
+            React.createElement("div", { className: "w-16 h-0.5 bg-[#b3707b] mx-auto" })
+          ),
+          React.createElement("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8" },
+            React.createElement("div", { onClick: () => { setActiveTab("catalog"); setSelectedCategory("rosas"); }, className: "group relative h-[360px] sm:h-[450px] rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all" },
+              React.createElement(ProductImage, { src: CONFIG.CATEGORY_IMAGES.rosas, category: "rosas", alt: "Rosas", className: "absolute inset-0 w-full h-full group-hover:scale-105 transition-transform duration-700" }),
+              React.createElement("div", { className: "absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" }),
+              React.createElement("div", { className: "absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-white space-y-2 sm:space-y-3" },
+                React.createElement("span", { className: "text-[10px] tracking-[0.25em] uppercase text-[#f3e2e5] font-semibold" }, "Colecci\xF3n Floral"),
+                React.createElement("h4", { className: "font-serif text-2xl sm:text-3xl font-light tracking-wide" }, "ROSAS"),
+                React.createElement("p", { className: "text-sm text-gray-200 font-light italic" }, '"Detalles que hablan por ti."'),
+                React.createElement("div", { className: "pt-2 inline-flex items-center gap-2 text-xs uppercase tracking-widest font-medium border-b border-white pb-1 group-hover:border-[#b3707b] transition-colors" }, "VER ROSAS ", React.createElement(Icon, { name: "arrow-right", className: "w-4 h-4" }))
+              )
+            ),
+            React.createElement("div", { onClick: () => { setActiveTab("catalog"); setSelectedCategory("bolsos"); }, className: "group relative h-[360px] sm:h-[450px] rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all" },
+              React.createElement(ProductImage, { src: CONFIG.CATEGORY_IMAGES.bolsos, category: "bolsos", alt: "Bolsos de Perlas", className: "absolute inset-0 w-full h-full group-hover:scale-105 transition-transform duration-700" }),
+              React.createElement("div", { className: "absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" }),
+              React.createElement("div", { className: "absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-white space-y-2 sm:space-y-3" },
+                React.createElement("span", { className: "text-[10px] tracking-[0.25em] uppercase text-[#f3e2e5] font-semibold" }, "Accesorios de Lujo"),
+                React.createElement("h4", { className: "font-serif text-2xl sm:text-3xl font-light tracking-wide" }, "BOLSOS DE PERLAS"),
+                React.createElement("p", { className: "text-sm text-gray-200 font-light italic" }, '"Elegancia para cada ocasi\xF3n."'),
+                React.createElement("div", { className: "pt-2 inline-flex items-center gap-2 text-xs uppercase tracking-widest font-medium border-b border-white pb-1 group-hover:border-[#b3707b] transition-colors" }, "VER BOLSOS ", React.createElement(Icon, { name: "arrow-right", className: "w-4 h-4" }))
+              )
+            ),
+            React.createElement("div", { onClick: () => { setActiveTab("catalog"); setSelectedCategory("combos"); }, className: "group relative h-[360px] sm:h-[450px] rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all" },
+              React.createElement(ProductImage, { src: CONFIG.CATEGORY_IMAGES.combos, category: "combos", alt: "Combos Regalo", className: "absolute inset-0 w-full h-full group-hover:scale-105 transition-transform duration-700" }),
+              React.createElement("div", { className: "absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" }),
+              React.createElement("div", { className: "absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-white space-y-2 sm:space-y-3" },
+                React.createElement("span", { className: "text-[10px] tracking-[0.25em] uppercase text-[#f3e2e5] font-semibold" }, "Packs Especiales"),
+                React.createElement("h4", { className: "font-serif text-2xl sm:text-3xl font-light tracking-wide" }, "COMBOS"),
+                React.createElement("p", { className: "text-sm text-gray-200 font-light italic" }, '"Combina y crea un regalo \xFAnico."'),
+                React.createElement("div", { className: "pt-2 inline-flex items-center gap-2 text-xs uppercase tracking-widest font-medium border-b border-white pb-1 group-hover:border-[#b3707b] transition-colors" }, "VER COMBOS ", React.createElement(Icon, { name: "arrow-right", className: "w-4 h-4" }))
+              )
+            )
+          )
+        ),
+        React.createElement("section", { className: "bg-[#f4f0ec] py-14 sm:py-20 lg:py-24" },
+          React.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" },
+            React.createElement("div", { className: "flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-4" },
+              React.createElement("div", null,
+                React.createElement("span", { className: "text-xs uppercase tracking-[0.3em] text-[#b3707b] font-semibold" }, "Selecci\xF3n del Mes"),
+                React.createElement("h3", { className: "font-serif text-3xl sm:text-5xl font-light text-[#1a1a1a] mt-2" }, "Los Favoritos")
+              ),
+              React.createElement("button", { onClick: () => { setActiveTab("catalog"); setSelectedCategory("all"); }, className: "text-xs uppercase tracking-[0.25em] font-medium text-[#1a1a1a] hover:text-[#b3707b] flex items-center gap-2 transition-colors self-start md:self-auto" }, "Ver cat\xE1logo completo ", React.createElement(Icon, { name: "arrow-right", className: "w-4 h-4" }))
+            ),
+            React.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8" },
+              INITIAL_PRODUCTS.filter((p) => p.featured).slice(0, 4).map((product) =>
+                React.createElement("div", { key: product.id, className: "bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col border border-[#eadece]/60" },
+                  React.createElement("div", { className: "relative h-60 sm:h-72 lg:h-80 overflow-hidden bg-[#faf8f6]" },
+                    React.createElement(ProductImage, { src: product.image, category: product.category, alt: product.name, className: "w-full h-full group-hover:scale-105 transition-transform duration-700" }),
+                    product.badge && React.createElement("span", { className: "absolute top-3 left-3 bg-[#1c1c1c] text-white text-[9px] uppercase font-bold tracking-widest px-3 py-1.5 rounded-full shadow-md" }, product.badge),
+                    React.createElement("button", { onClick: () => { setCurrentProduct(product); setActiveTab("product"); }, className: "absolute inset-x-3 bottom-3 bg-white/95 backdrop-blur-md text-[#1c1c1c] py-2.5 rounded-2xl text-xs uppercase tracking-widest font-semibold opacity-0 group-hover:opacity-100 transition-all shadow-xl text-center" }, "Ver Detalle")
+                  ),
+                  React.createElement("div", { className: "p-5 sm:p-6 flex-1 flex flex-col justify-between" },
+                    React.createElement("div", null,
+                      React.createElement("p", { className: "text-[10px] uppercase tracking-[0.25em] text-[#888] mb-1" }, product.category),
+                      React.createElement("h4", { className: "font-serif text-lg sm:text-xl font-normal text-[#1a1a1a] line-clamp-1" }, product.name),
+                      React.createElement("p", { className: "text-base font-semibold text-[#b3707b] mt-1.5" }, product.formattedPrice)
+                    ),
+                    React.createElement("div", { className: "pt-4 flex items-center gap-2 sm:gap-3" },
+                      React.createElement("button", { onClick: () => addToCart(product, 1), className: "flex-1 bg-[#1c1c1c] hover:bg-[#b3707b] text-white py-2.5 sm:py-3 rounded-xl text-xs uppercase tracking-widest font-medium transition-colors" }, "Agregar"),
+                      React.createElement("button", { onClick: () => { setCurrentProduct(product); setActiveTab("product"); }, className: "p-2.5 sm:p-3 border border-[#dcd0d3] rounded-xl hover:border-[#b3707b] text-[#1c1c1c] transition-colors", "aria-label": "Ver" }, React.createElement(Icon, { name: "search", className: "w-4 h-4" }))
+                    )
+                  )
+                )
+              )
+            )
+          )
+        ),
+        React.createElement("section", { className: "py-14 sm:py-20 lg:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-[#eadece]" },
+          React.createElement("div", { className: "text-center max-w-2xl mx-auto mb-10 sm:mb-12 space-y-3" },
+            React.createElement("span", { className: "text-xs uppercase tracking-[0.3em] text-[#b3707b] font-semibold" }, "Comparte tu Experiencia"),
+            React.createElement("h3", { className: "font-serif text-3xl sm:text-4xl font-light text-[#1a1a1a]" }, "Escribe tu Rese\xF1a"),
+            React.createElement("p", { className: "text-sm text-[#666] font-light" }, "\xBFCompraste en ", CONFIG.BUSINESS_NAME, "? Nos encantar\xEDa conocer tu opini\xF3n.")
+          ),
+          React.createElement("div", { className: "bg-[#f4f0ec] p-6 sm:p-12 rounded-3xl border border-[#eadece] shadow-sm max-w-2xl mx-auto" },
+            reviewSuccessMessage && React.createElement("div", { className: "mb-6 bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-2xl text-xs uppercase tracking-wider text-center font-medium animate-fadeIn" }, "\u2728 \xA1Muchas gracias por tu rese\xF1a!"),
+            React.createElement("form", { onSubmit: handleAddReview, className: "space-y-5 sm:space-y-6" },
+              React.createElement("div", null,
+                React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "Tu Nombre *"),
+                React.createElement("input", { type: "text", required: true, placeholder: "Ej. Valentina G\xF3mez", value: newReviewName, onChange: (e) => setNewReviewName(e.target.value), className: "w-full bg-white border border-[#eadece] rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 text-sm outline-none focus:border-[#b3707b]" })
+              ),
+              React.createElement("div", null,
+                React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "Calificaci\xF3n"),
+                React.createElement("select", { value: newReviewRating, onChange: (e) => setNewReviewRating(e.target.value), className: "w-full bg-white border border-[#eadece] rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 text-sm outline-none focus:border-[#b3707b]" },
+                  React.createElement("option", { value: "5" }, "\u2605\u2605\u2605\u2605\u2605 (5/5)"),
+                  React.createElement("option", { value: "4" }, "\u2605\u2605\u2605\u2605\u2606 (4/5)"),
+                  React.createElement("option", { value: "3" }, "\u2605\u2605\u2605\u2606\u2606 (3/5)")
+                )
+              ),
+              React.createElement("div", null,
+                React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "Tu Comentario *"),
+                React.createElement("textarea", { required: true, rows: "4", placeholder: "Cu\xE9ntanos c\xF3mo fue tu experiencia...", value: newReviewComment, onChange: (e) => setNewReviewComment(e.target.value), className: "w-full bg-white border border-[#eadece] rounded-2xl p-4 text-sm outline-none focus:border-[#b3707b]" })
+              ),
+              React.createElement("button", { type: "submit", className: "w-full bg-[#1c1c1c] hover:bg-[#b3707b] text-white py-3.5 sm:py-4 rounded-2xl text-xs uppercase tracking-[0.2em] font-medium shadow-md transition-all" }, "Publicar Rese\xF1a")
+            )
+          ),
+          reviews.length > 0 && React.createElement("div", { className: "mt-12 sm:mt-16 space-y-5 sm:space-y-6 max-w-2xl mx-auto" },
+            React.createElement("h4", { className: "font-serif text-2xl font-light text-[#1a1a1a] text-center mb-6 sm:mb-8" }, "Rese\xF1as de nuestros clientes"),
+            reviews.map((rev) =>
+              React.createElement("div", { key: rev.id, className: "bg-white p-5 sm:p-8 rounded-3xl border border-[#eadece] shadow-sm space-y-3" },
+                React.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" },
+                  React.createElement("div", { className: "flex items-center gap-1 text-[#d4af37]" }, [...Array(rev.rating)].map((_, i) => React.createElement(Icon, { key: i, name: "star", className: "w-4 h-4" }))),
+                  React.createElement("span", { className: "text-xs text-[#888] font-light" }, rev.date)
+                ),
+                React.createElement("p", { className: "text-sm text-[#444] font-light leading-relaxed italic" }, '"', rev.comment, '"'),
+                React.createElement("p", { className: "text-xs uppercase tracking-widest font-semibold text-[#1a1a1a]" }, "\u2014 ", rev.name, " ", React.createElement("span", { className: "text-[10px] text-[#b3707b] font-normal" }, "(Rionegro)"))
+              )
+            )
+          )
+        ),
+        React.createElement("section", { className: "py-14 sm:py-20 lg:py-24 border-t border-[#eadece] bg-[#f4f0ec]/40" },
+          React.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" },
+            React.createElement("div", { className: "text-center max-w-xl mx-auto mb-10 sm:mb-16 space-y-3" },
+              React.createElement("span", { className: "text-xs uppercase tracking-[0.3em] text-[#b3707b] font-semibold" }, "Inspiraci\xF3n Diaria"),
+              React.createElement("h3", { className: "font-serif text-3xl sm:text-4xl text-[#1a1a1a]" }, "S\xEDguenos en Instagram"),
+              React.createElement("a", { href: CONFIG.INSTAGRAM_URL, target: "_blank", rel: "noopener noreferrer", className: "text-xs tracking-widest uppercase text-[#666] hover:text-[#b3707b] underline block pt-1 font-medium" }, CONFIG.INSTAGRAM_HANDLE)
+            ),
+            React.createElement("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-10 sm:mb-12" },
+              ["rosas", "bolsos", "combos", "rosas"].map((cat, idx) =>
+                React.createElement("a", { key: idx, href: CONFIG.INSTAGRAM_URL, target: "_blank", rel: "noopener noreferrer", className: "group relative h-44 sm:h-64 md:h-72 rounded-2xl sm:rounded-3xl overflow-hidden shadow-sm" },
+                  React.createElement(ProductImage, { src: CONFIG.INSTAGRAM_IMAGES[idx], category: cat, alt: "Instagram post", className: "w-full h-full group-hover:scale-110 transition-transform duration-700" }),
+                  React.createElement("div", { className: "absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white" }, React.createElement(Icon, { name: "heart", className: "w-8 h-8 text-[#f3e2e5]" }))
+                )
+              )
+            ),
+            React.createElement("div", { className: "text-center" },
+              React.createElement("a", { href: CONFIG.INSTAGRAM_URL, target: "_blank", rel: "noopener noreferrer", className: "inline-flex items-center gap-3 border border-[#1c1c1c] text-[#1c1c1c] hover:bg-[#1c1c1c] hover:text-white px-7 sm:px-10 py-3.5 sm:py-4 rounded-full text-xs uppercase tracking-[0.25em] font-medium transition-colors" }, "VER INSTAGRAM")
+            )
+          )
+        )
+      ),
+      activeTab === "catalog" && React.createElement("div", { className: "py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fadeIn" },
+        React.createElement("div", { className: "text-center max-w-2xl mx-auto mb-8 sm:mb-12 space-y-3" },
+          React.createElement("span", { className: "text-xs uppercase tracking-[0.3em] text-[#b3707b] font-semibold" }, CONFIG.BUSINESS_NAME),
+          React.createElement("h2", { className: "font-serif text-3xl sm:text-5xl font-light text-[#1a1a1a]" }, "Colecci\xF3n Exclusiva"),
+          React.createElement("p", { className: "text-sm text-[#666] font-light" }, "Piezas dise\xF1adas para impresionar en Rionegro, Antioquia.")
+        ),
+        React.createElement("div", { className: "flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10 sm:mb-16" },
+          [{ id: "all", label: "Todos" }, { id: "rosas", label: "Rosas" }, { id: "bolsos", label: "Bolsos de Perlas" }, { id: "combos", label: "Combos" }].map((cat) =>
+            React.createElement("button", { key: cat.id, onClick: () => setSelectedCategory(cat.id), className: `px-5 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] font-medium transition-all ${selectedCategory === cat.id ? "bg-[#1c1c1c] text-white shadow-lg" : "bg-white text-[#555] border border-[#eadece] hover:border-[#b3707b]"}` }, cat.label)
+          )
+        ),
+        filteredProducts.length === 0 ? React.createElement("div", { className: "text-center py-16 sm:py-24 bg-white rounded-3xl border border-[#eadece] shadow-sm" },
+          React.createElement("p", { className: "text-[#777] text-lg sm:text-xl font-serif" }, "No encontramos productos en esta categor\xEDa."),
+          React.createElement("button", { onClick: () => setSelectedCategory("all"), className: "mt-6 text-xs uppercase tracking-widest font-medium text-[#b3707b] underline" }, "Ver todo el cat\xE1logo")
+        ) : React.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" },
+          filteredProducts.map((product) =>
+            React.createElement("div", { key: product.id, className: "bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col border border-[#eadece]" },
+              React.createElement("div", { className: "relative h-64 sm:h-80 overflow-hidden bg-[#faf8f6]" },
+                React.createElement(ProductImage, { src: product.image, category: product.category, alt: product.name, className: "w-full h-full group-hover:scale-105 transition-transform duration-700" }),
+                product.badge && React.createElement("span", { className: "absolute top-3 left-3 bg-[#1c1c1c] text-white text-[9px] uppercase font-bold tracking-widest px-3 py-1.5 rounded-full shadow-md" }, product.badge)
+              ),
+              React.createElement("div", { className: "p-6 sm:p-8 flex-1 flex flex-col justify-between" },
+                React.createElement("div", null,
+                  React.createElement("p", { className: "text-[10px] uppercase tracking-[0.25em] text-[#888] mb-1" }, product.category),
+                  React.createElement("h4", { className: "font-serif text-xl sm:text-2xl font-normal text-[#1a1a1a]" }, product.name),
+                  React.createElement("p", { className: "text-lg font-semibold text-[#b3707b] mt-2" }, product.formattedPrice),
+                  React.createElement("p", { className: "text-xs text-[#666] mt-3 line-clamp-2 font-light leading-relaxed" }, product.description)
+                ),
+                React.createElement("div", { className: "pt-6 sm:pt-8 flex items-center gap-3 sm:gap-4" },
+                  React.createElement("button", { onClick: () => { setCurrentProduct(product); setActiveTab("product"); }, className: "flex-1 bg-white border border-[#1c1c1c] text-[#1c1c1c] hover:bg-[#1c1c1c] hover:text-white py-3 sm:py-3.5 rounded-2xl text-xs uppercase tracking-[0.2em] font-medium transition-colors text-center" }, "Ver detalle"),
+                  React.createElement("button", { onClick: () => addToCart(product, 1), className: "bg-[#1c1c1c] hover:bg-[#b3707b] text-white p-3 sm:p-3.5 rounded-2xl transition-colors shadow-sm", "aria-label": "Agregar" }, React.createElement(Icon, { name: "shopping-bag", className: "w-5 h-5" }))
+                )
+              )
+            )
+          )
+        )
+      ),
+      activeTab === "product" && currentProduct && React.createElement("div", { className: "py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fadeIn" },
+        React.createElement("button", { onClick: () => setActiveTab("catalog"), className: "text-xs text-[#777] hover:text-[#b3707b] uppercase tracking-[0.2em] mb-8 sm:mb-10 flex items-center gap-2 font-medium" }, "\u2190 Volver al cat\xE1logo"),
+        React.createElement("div", { className: "grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start" },
+          React.createElement("div", { className: "lg:col-span-6" },
+            React.createElement("div", { className: "rounded-3xl overflow-hidden shadow-xl bg-[#faf8f6] h-[320px] sm:h-[480px] lg:h-[600px] border border-[#eadece]" },
+              React.createElement(ProductImage, { src: currentProduct.image, category: currentProduct.category, alt: currentProduct.name, className: "w-full h-full" })
+            )
+          ),
+          React.createElement("div", { className: "lg:col-span-6 space-y-6 sm:space-y-8" },
+            React.createElement("div", null,
+              React.createElement("span", { className: "text-xs uppercase tracking-[0.3em] text-[#b3707b] font-semibold" }, currentProduct.category),
+              React.createElement("h2", { className: "font-serif text-2xl sm:text-4xl lg:text-5xl font-light text-[#1a1a1a] mt-2" }, currentProduct.name),
+              React.createElement("p", { className: "text-2xl sm:text-3xl font-semibold text-[#b3707b] mt-3" }, currentProduct.formattedPrice)
+            ),
+            React.createElement("p", { className: "text-[#555] font-light text-sm sm:text-base leading-relaxed" }, currentProduct.description),
+            React.createElement("div", { className: "bg-[#f4f0ec] p-4 sm:p-5 rounded-2xl border border-[#eadece] flex items-center gap-3" },
+              React.createElement("span", { className: "w-3 h-3 rounded-full bg-green-500 animate-pulse shrink-0" }),
+              React.createElement("span", { className: "text-xs uppercase tracking-wider font-medium text-[#1a1a1a]" }, "Disponible para entrega inmediata en Rionegro")
+            ),
+            ((_a = currentProduct.variants) == null ? void 0 : _a.colors) && React.createElement("div", { className: "space-y-3" },
+              React.createElement("label", { className: "text-xs uppercase tracking-[0.2em] font-semibold text-[#1a1a1a]" }, "Color / Tonalidad:"),
+              React.createElement("div", { className: "flex flex-wrap gap-2" }, currentProduct.variants.colors.map((col) =>
+                React.createElement("button", { key: col, onClick: () => setSelectedColor(col), className: `px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs font-medium transition-all ${selectedColor === col ? "bg-[#1c1c1c] text-white shadow-md" : "bg-white border border-[#eadece] text-[#555] hover:border-[#b3707b]"}` }, col)
+              ))
+            ),
+            ((_b = currentProduct.variants) == null ? void 0 : _b.sizes) && React.createElement("div", { className: "space-y-3" },
+              React.createElement("label", { className: "text-xs uppercase tracking-[0.2em] font-semibold text-[#1a1a1a]" }, "Tama\xF1o:"),
+              React.createElement("div", { className: "flex flex-wrap gap-2" }, currentProduct.variants.sizes.map((sz) =>
+                React.createElement("button", { key: sz, onClick: () => setSelectedSize(sz), className: `px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs font-medium transition-all ${selectedSize === sz ? "bg-[#1c1c1c] text-white shadow-md" : "bg-white border border-[#eadece] text-[#555] hover:border-[#b3707b]"}` }, sz)
+              ))
+            ),
+            ((_c = currentProduct.variants) == null ? void 0 : _c.presentations) && React.createElement("div", { className: "space-y-3" },
+              React.createElement("label", { className: "text-xs uppercase tracking-[0.2em] font-semibold text-[#1a1a1a]" }, "Presentaci\xF3n:"),
+              React.createElement("div", { className: "flex flex-wrap gap-2" }, currentProduct.variants.presentations.map((pres) =>
+                React.createElement("button", { key: pres, onClick: () => setSelectedPresentation(pres), className: `px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs font-medium transition-all ${selectedPresentation === pres ? "bg-[#1c1c1c] text-white shadow-md" : "bg-white border border-[#eadece] text-[#555] hover:border-[#b3707b]"}` }, pres)
+              ))
+            ),
+            React.createElement("div", { className: "border-t border-b border-[#eadece] py-6 sm:py-8 space-y-5 sm:space-y-6" },
+              React.createElement("div", { className: "space-y-1" },
+                React.createElement("h4", { className: "font-serif text-xl sm:text-2xl font-light text-[#1a1a1a]" }, "Haz tu regalo m\xE1s especial"),
+                React.createElement("p", { className: "text-xs text-[#777] uppercase tracking-wider" }, "Incluye tarjeta y empaque de lujo sin costo adicional.")
+              ),
+              React.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4" },
+                React.createElement("div", null,
+                  React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "Nombre del Destinatario"),
+                  React.createElement("input", { type: "text", placeholder: "Ej. Sof\xEDa Mart\xEDnez", value: recipientName, onChange: (e) => setRecipientName(e.target.value), className: "w-full bg-white border border-[#eadece] rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 text-sm outline-none focus:border-[#b3707b]" })
+                ),
+                React.createElement("div", null,
+                  React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "Ocasi\xF3n"),
+                  React.createElement("select", { value: selectedOccasion, onChange: (e) => setSelectedOccasion(e.target.value), className: "w-full bg-white border border-[#eadece] rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 text-sm outline-none focus:border-[#b3707b]" },
+                    React.createElement("option", { value: "Cumplea\xF1os" }, "Cumplea\xF1os"),
+                    React.createElement("option", { value: "Aniversario" }, "Aniversario"),
+                    React.createElement("option", { value: "Amor" }, "Amor"),
+                    React.createElement("option", { value: "Amistad" }, "Amistad"),
+                    React.createElement("option", { value: "Graduaci\xF3n" }, "Graduaci\xF3n"),
+                    React.createElement("option", { value: "D\xEDa de la Madre" }, "D\xEDa de la Madre"),
+                    React.createElement("option", { value: "Regalo especial" }, "Regalo especial"),
+                    React.createElement("option", { value: "Otra" }, "Otra")
+                  )
+                )
+              ),
+              React.createElement("div", null,
+                React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "Mensaje para la Tarjeta"),
+                React.createElement("textarea", { rows: "3", placeholder: "Ej. Con todo mi cari\xF1o...", value: customMessage, onChange: (e) => setCustomMessage(e.target.value), className: "w-full bg-white border border-[#eadece] rounded-2xl p-4 text-sm outline-none focus:border-[#b3707b]" })
+              )
+            ),
+            React.createElement("div", { className: "space-y-3 sm:space-y-4" },
+              React.createElement("div", { className: "flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4" },
+                React.createElement("div", { className: "flex items-center justify-center border border-[#eadece] rounded-2xl bg-white shadow-sm self-start" },
+                  React.createElement("button", { onClick: () => setProductQuantity(Math.max(1, productQuantity - 1)), className: "px-5 py-3.5 sm:py-4 text-base font-medium text-[#555] hover:text-[#1a1a1a]", "aria-label": "Reducir" }, "-"),
+                  React.createElement("span", { className: "px-4 py-3.5 sm:py-4 text-sm font-semibold" }, productQuantity),
+                  React.createElement("button", { onClick: () => setProductQuantity(productQuantity + 1), className: "px-5 py-3.5 sm:py-4 text-base font-medium text-[#555] hover:text-[#1a1a1a]", "aria-label": "Aumentar" }, "+")
+                ),
+                React.createElement("button", { onClick: () => addToCart(currentProduct, productQuantity), className: "flex-1 bg-[#1c1c1c] hover:bg-[#b3707b] text-white py-3.5 sm:py-4 rounded-2xl text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] font-medium shadow-lg transition-all text-center" }, "Agregar al Carrito")
+              ),
+              React.createElement("button", { onClick: () => handleBuyNowDirect(currentProduct), className: "w-full bg-[#25D366] hover:bg-[#20ba5a] text-white py-3.5 sm:py-4 rounded-2xl text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] font-medium shadow-lg transition-all flex items-center justify-center gap-3" },
+                React.createElement(Icon, { name: "whatsapp", className: "w-5 h-5" }),
+                React.createElement("span", { className: "hidden sm:inline" }, "Comprar por WhatsApp (", CONFIG.WHATSAPP_DISPLAY, ")"),
+                React.createElement("span", { className: "sm:hidden" }, "Comprar por WhatsApp")
+              )
+            )
+          )
+        )
+      ),
+      activeTab === "about" && React.createElement("div", { className: "py-16 sm:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16 animate-fadeIn" },
+        React.createElement("div", { className: "text-center space-y-4" },
+          React.createElement("span", { className: "text-xs uppercase tracking-[0.3em] text-[#b3707b] font-semibold" }, CONFIG.TAGLINE),
+          React.createElement("h2", { className: "font-serif text-3xl sm:text-5xl lg:text-6xl font-light text-[#1a1a1a]" }, "Creamos detalles para momentos especiales"),
+          React.createElement("div", { className: "w-20 h-0.5 bg-[#b3707b] mx-auto" })
+        ),
+        React.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center" },
+          React.createElement(ProductImage, { src: CONFIG.ABOUT_IMAGE, category: "bolsos", alt: "Tienda", className: "rounded-3xl shadow-xl h-[320px] sm:h-[420px] border border-[#eadece]" }),
+          React.createElement("div", { className: "space-y-5 sm:space-y-6 text-[#555] font-light text-sm sm:text-base leading-relaxed" },
+            React.createElement("p", null, "Somos ", React.createElement("strong", null, CONFIG.BUSINESS_NAME), ", una marca dedicada a crear regalos excepcionales, fusionando la frescura y elegancia eterna de las rosas con la sofisticaci\xF3n artesanal de los bolsos de perlas."),
+            React.createElement("p", null, "Cada pedido es elaborado cuidadosamente bajo rigurosos est\xE1ndares de excelencia en ", React.createElement("strong", null, CONFIG.CITY, ", ", CONFIG.DEPARTMENT, ", ", CONFIG.COUNTRY), "."),
+            React.createElement("div", { className: "pt-5 sm:pt-6 border-t border-[#eadece] space-y-3" },
+              React.createElement("p", { className: "text-xs uppercase tracking-[0.2em] text-[#1a1a1a] font-semibold" }, "Informaci\xF3n & Contacto"),
+              React.createElement("p", { className: "text-sm" }, "\u{1F552} ", CONFIG.BUSINESS_HOURS),
+              React.createElement("p", { className: "text-sm" }, "\u{1F4DE} WhatsApp: ", CONFIG.WHATSAPP_DISPLAY),
+              React.createElement("p", { className: "text-sm break-all" }, "\u2709\uFE0F Email: ", CONFIG.EMAIL),
+              React.createElement("p", { className: "text-sm" }, "\u{1F4F8} Instagram: ", CONFIG.INSTAGRAM_HANDLE)
+            )
+          )
+        )
+      ),
+      activeTab === "shipping" && React.createElement("div", { className: "py-16 sm:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16 animate-fadeIn" },
+        React.createElement("div", { className: "text-center space-y-4" },
+          React.createElement("span", { className: "text-xs uppercase tracking-[0.3em] text-[#b3707b] font-semibold" }, "Contacto & Cobertura"),
+          React.createElement("h2", { className: "font-serif text-3xl sm:text-5xl lg:text-6xl font-light text-[#1a1a1a]" }, "Env\xEDos en Rionegro"),
+          React.createElement("div", { className: "w-20 h-0.5 bg-[#b3707b] mx-auto" })
+        ),
+        React.createElement("div", { className: "bg-white border border-[#eadece] rounded-3xl p-6 sm:p-14 shadow-sm space-y-8 sm:space-y-10" },
+          React.createElement("div", { className: "flex items-start gap-4 sm:gap-6" },
+            React.createElement("div", { className: "p-3 sm:p-4 bg-[#f4f0ec] text-[#b3707b] rounded-2xl shrink-0" }, React.createElement(Icon, { name: "truck", className: "w-7 h-7 sm:w-8 sm:h-8" })),
+            React.createElement("div", { className: "space-y-2 min-w-0" },
+              React.createElement("h4", { className: "font-serif text-xl sm:text-2xl text-[#1a1a1a]" }, "Entrega Exclusiva en ", CONFIG.CITY, ", ", CONFIG.DEPARTMENT, ", ", CONFIG.COUNTRY),
+              React.createElement("p", { className: "text-sm text-[#666] font-light leading-relaxed" }, "Realizamos entregas \xFAnicamente dentro del municipio de Rionegro. Esto nos permite garantizar que las rosas lleguen impecables y los bolsos en perfectas condiciones.")
+            )
+          ),
+          React.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 pt-6 sm:pt-8 border-t border-[#eadece]" },
+            React.createElement("div", { className: "space-y-3" },
+              React.createElement("h5", { className: "font-semibold text-xs uppercase tracking-[0.2em] text-[#1a1a1a]" }, "Zona de Cobertura"),
+              React.createElement("p", { className: "text-sm text-[#666] font-light leading-relaxed" }, CONFIG.DELIVERY_AREA),
+              React.createElement("p", { className: "text-sm pt-2 text-[#1a1a1a] break-all" }, "\u2709\uFE0F ", CONFIG.EMAIL)
+            ),
+            React.createElement("div", { className: "space-y-3" },
+              React.createElement("h5", { className: "font-semibold text-xs uppercase tracking-[0.2em] text-[#1a1a1a]" }, "Costo de Env\xEDo & Horarios"),
+              React.createElement("p", { className: "text-sm text-[#666] font-light" }, CONFIG.DELIVERY_PRICE === 0 ? "\xA1Env\xEDo gratis en Rionegro!" : `$${CONFIG.DELIVERY_PRICE.toLocaleString()}`),
+              React.createElement("p", { className: "text-xs text-[#555] font-light" }, "Horario: ", CONFIG.BUSINESS_HOURS),
+              React.createElement("p", { className: "text-sm pt-2 font-medium text-[#25D366]" }, "\u{1F4DE} WhatsApp: ", CONFIG.WHATSAPP_DISPLAY)
+            )
+          )
+        )
+      )
+    ),
+    isCartOpen && React.createElement("div", { className: "fixed inset-0 z-50 overflow-hidden animate-fadeIn" },
+      React.createElement("div", { className: "absolute inset-0 bg-black/60 backdrop-blur-sm", onClick: () => setIsCartOpen(false) }),
+      React.createElement("div", { className: "absolute inset-y-0 right-0 w-full max-w-md flex" },
+        React.createElement("div", { className: "w-full bg-white shadow-2xl flex flex-col border-l border-[#eadece]" },
+          React.createElement("div", { className: "p-5 sm:p-6 border-b border-[#eadece] flex items-center justify-between bg-[#faf8f6]" },
+            React.createElement("h3", { className: "font-serif text-xl sm:text-2xl font-light text-[#1a1a1a]" }, "Tu Carrito (", totalCartCount, ")"),
+            React.createElement("button", { onClick: () => setIsCartOpen(false), className: "p-2 text-[#777] hover:text-[#1a1a1a]", "aria-label": "Cerrar" }, React.createElement(Icon, { name: "close", className: "w-6 h-6" }))
+          ),
+          React.createElement("div", { className: "flex-1 overflow-y-auto p-5 sm:p-6 space-y-5 sm:space-y-6" },
+            cart.length === 0 ? React.createElement("div", { className: "text-center py-20 sm:py-24 space-y-6" },
+              React.createElement(Icon, { name: "shopping-bag", className: "w-14 h-14 text-[#ccc] mx-auto" }),
+              React.createElement("p", { className: "text-base text-[#666] font-serif" }, "Tu carrito est\xE1 vac\xEDo."),
+              React.createElement("button", { onClick: () => { setIsCartOpen(false); setActiveTab("catalog"); }, className: "bg-[#1c1c1c] text-white px-7 sm:px-8 py-3.5 rounded-full text-xs uppercase tracking-[0.2em]" }, "Explorar Productos")
+            ) : cart.map((item) =>
+              React.createElement("div", { key: item.cartId, className: "flex gap-3 sm:gap-4 pb-5 sm:pb-6 border-b border-[#eadece] items-start" },
+                React.createElement(ProductImage, { src: item.image, category: item.category, alt: item.name, className: "w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border border-[#eadece] shrink-0" }),
+                React.createElement("div", { className: "flex-1 min-w-0" },
+                  React.createElement("h4", { className: "font-serif text-sm font-normal text-[#1a1a1a] break-words" }, item.name),
+                  React.createElement("p", { className: "text-xs text-[#888] mt-0.5 break-words" }, item.color, " | ", item.size, " | ", item.presentation),
+                  item.recipientName && React.createElement("p", { className: "text-[11px] text-[#b3707b] mt-0.5 font-medium break-words" }, "Para: ", item.recipientName, " (", item.occasion, ")"),
+                  React.createElement("p", { className: "text-sm font-semibold text-[#b3707b] mt-1.5" }, item.formattedPrice),
+                  React.createElement("div", { className: "flex items-center justify-between mt-3 gap-2" },
+                    React.createElement("div", { className: "flex items-center border border-[#eadece] rounded-xl bg-white shadow-sm" },
+                      React.createElement("button", { onClick: () => updateCartQuantity(item.cartId, -1), className: "px-3 py-1.5 text-xs font-medium", "aria-label": "Reducir" }, "-"),
+                      React.createElement("span", { className: "px-3 text-xs font-semibold" }, item.quantity),
+                      React.createElement("button", { onClick: () => updateCartQuantity(item.cartId, 1), className: "px-3 py-1.5 text-xs font-medium", "aria-label": "Aumentar" }, "+")
+                    ),
+                    React.createElement("button", { onClick: () => removeFromCart(item.cartId), className: "text-[#999] hover:text-red-500 p-2 shrink-0", "aria-label": "Eliminar" }, React.createElement(Icon, { name: "trash", className: "w-4 h-4" }))
+                  )
+                )
+              )
+            )
+          ),
+          cart.length > 0 && React.createElement("div", { className: "p-5 sm:p-6 border-t border-[#eadece] bg-[#faf8f6] space-y-4 sm:space-y-5" },
+            React.createElement("div", { className: "space-y-2.5 text-sm" },
+              React.createElement("div", { className: "flex justify-between text-[#666]" }, React.createElement("span", null, "Subtotal"), React.createElement("span", null, "$", cartSubtotal.toLocaleString())),
+              React.createElement("div", { className: "flex justify-between text-[#666]" }, React.createElement("span", null, "Env\xEDo"), React.createElement("span", null, shippingTotal === 0 ? "Gratis" : `$${shippingTotal.toLocaleString()}`)),
+              React.createElement("div", { className: "flex justify-between text-base font-semibold text-[#1a1a1a] pt-2 border-t border-[#eadece]" }, React.createElement("span", null, "Total"), React.createElement("span", null, "$", cartTotal.toLocaleString()))
+            ),
+            React.createElement("button", { onClick: () => { setIsCartOpen(false); setIsCheckoutOpen(true); }, className: "w-full bg-[#1c1c1c] hover:bg-[#b3707b] text-white py-3.5 sm:py-4 rounded-2xl text-xs uppercase tracking-[0.25em] font-medium shadow-xl transition-all text-center" }, "FINALIZAR PEDIDO")
+          )
+        )
+      )
+    ),
+    isCheckoutOpen && React.createElement("div", { className: "fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-fadeIn" },
+      React.createElement("div", { className: "fixed inset-0 bg-black/60 backdrop-blur-sm", onClick: () => setIsCheckoutOpen(false) }),
+      React.createElement("div", { className: "relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-5 sm:p-12 z-10 my-6 sm:my-8 max-h-[92dvh] overflow-y-auto border border-[#eadece]" },
+        React.createElement("div", { className: "flex items-start justify-between pb-5 sm:pb-6 border-b border-[#eadece] gap-3" },
+          React.createElement("div", { className: "min-w-0" },
+            React.createElement("h3", { className: "font-serif text-xl sm:text-3xl font-light text-[#1a1a1a]" }, "Finalizar Pedido"),
+            React.createElement("p", { className: "text-[11px] sm:text-xs text-[#b3707b] mt-1 font-medium" }, "Entregas exclusivas en Rionegro, Antioquia")
+          ),
+          React.createElement("button", { onClick: () => setIsCheckoutOpen(false), className: "p-2 text-[#777] hover:text-[#1a1a1a] shrink-0", "aria-label": "Cerrar" }, React.createElement(Icon, { name: "close", className: "w-6 h-6" }))
+        ),
+        React.createElement("form", { onSubmit: handleWhatsAppCheckout, className: "space-y-5 sm:space-y-6 pt-5 sm:pt-6" },
+          React.createElement("div", { className: "bg-[#f4f0ec] border border-[#eadece] p-4 rounded-2xl flex items-start gap-3" },
+            React.createElement(Icon, { name: "map-pin", className: "w-5 h-5 text-[#b3707b] shrink-0 mt-0.5" }),
+            React.createElement("div", { className: "text-xs text-[#555] font-light" }, React.createElement("strong", { className: "text-[#1a1a1a] font-medium" }, "Ubicaci\xF3n: Rionegro, Antioquia."), " Entregas \xFAnicamente dentro de esta ciudad.")
+          ),
+          React.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5" },
+            React.createElement("div", null,
+              React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "Nombre Completo *"),
+              React.createElement("input", { type: "text", required: true, placeholder: "Tu nombre y apellido", value: checkoutForm.fullName, onChange: (e) => setCheckoutForm({ ...checkoutForm, fullName: e.target.value }), className: "w-full bg-white border border-[#eadece] rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 text-sm outline-none focus:border-[#b3707b]" })
+            ),
+            React.createElement("div", null,
+              React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "N\xFAmero de WhatsApp *"),
+              React.createElement("input", { type: "tel", required: true, inputMode: "tel", placeholder: "313 738 8363", value: checkoutForm.whatsapp, onChange: (e) => setCheckoutForm({ ...checkoutForm, whatsapp: e.target.value }), className: "w-full bg-white border border-[#eadece] rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 text-sm outline-none focus:border-[#b3707b]" })
+            )
+          ),
+          React.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5" },
+            React.createElement("div", null,
+              React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "Direcci\xF3n de Entrega *"),
+              React.createElement("input", { type: "text", required: true, placeholder: "Calle, n\xFAmero, Edificio", value: checkoutForm.address, onChange: (e) => setCheckoutForm({ ...checkoutForm, address: e.target.value }), className: "w-full bg-white border border-[#eadece] rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 text-sm outline-none focus:border-[#b3707b]" })
+            ),
+            React.createElement("div", null,
+              React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "Barrio / Sector *"),
+              React.createElement("input", { type: "text", required: true, placeholder: "Ej. San Antonio, Centro", value: checkoutForm.neighborhood, onChange: (e) => setCheckoutForm({ ...checkoutForm, neighborhood: e.target.value }), className: "w-full bg-white border border-[#eadece] rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 text-sm outline-none focus:border-[#b3707b]" })
+            )
+          ),
+          React.createElement("div", null,
+            React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "Punto de Referencia (Opcional)"),
+            React.createElement("input", { type: "text", placeholder: "Ej. Frente al parque...", value: checkoutForm.reference, onChange: (e) => setCheckoutForm({ ...checkoutForm, reference: e.target.value }), className: "w-full bg-white border border-[#eadece] rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 text-sm outline-none focus:border-[#b3707b]" })
+          ),
+          React.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5" },
+            React.createElement("div", null,
+              React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "Fecha de Entrega"),
+              React.createElement("input", { type: "date", value: checkoutForm.deliveryDate, onChange: (e) => setCheckoutForm({ ...checkoutForm, deliveryDate: e.target.value }), className: "w-full bg-white border border-[#eadece] rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 text-sm outline-none focus:border-[#b3707b]" })
+            ),
+            React.createElement("div", null,
+              React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "Franja Horaria"),
+              React.createElement("select", { value: checkoutForm.timeSlot, onChange: (e) => setCheckoutForm({ ...checkoutForm, timeSlot: e.target.value }), className: "w-full bg-white border border-[#eadece] rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 text-sm outline-none focus:border-[#b3707b]" },
+                React.createElement("option", { value: "Ma\xF1ana (9:00 a.m. - 1:00 p.m.)" }, "Ma\xF1ana (9:00 a.m. - 1:00 p.m.)"),
+                React.createElement("option", { value: "Tarde (2:00 p.m. - 6:00 p.m.)" }, "Tarde (2:00 p.m. - 6:00 p.m.)"),
+                React.createElement("option", { value: "Hora exacta acordada" }, "Hora exacta acordada")
+              )
+            )
+          ),
+          React.createElement("div", null,
+            React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "M\xE9todo de Pago"),
+            React.createElement("select", { value: checkoutForm.paymentMethod, disabled: true, className: "w-full bg-[#faf8f6] border border-[#eadece] rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5 text-sm outline-none font-medium text-[#1a1a1a] cursor-not-allowed" },
+              React.createElement("option", { value: `Nequi (${CONFIG.NEQUI_NUMBER})` }, "Nequi (", CONFIG.NEQUI_NUMBER, ")")
+            ),
+            React.createElement("p", { className: "text-[11px] text-[#888] mt-1.5" }, "Pago coordinado por transferencia a Nequi (", CONFIG.NEQUI_NUMBER, ") o WhatsApp.")
+          ),
+          React.createElement("div", null,
+            React.createElement("label", { className: "block text-xs uppercase tracking-wider text-[#666] mb-2 font-medium" }, "Nota adicional (Opcional)"),
+            React.createElement("textarea", { rows: "2", placeholder: "Instrucciones para el repartidor...", value: checkoutForm.note, onChange: (e) => setCheckoutForm({ ...checkoutForm, note: e.target.value }), className: "w-full bg-white border border-[#eadece] rounded-2xl p-4 text-sm outline-none focus:border-[#b3707b]" })
+          ),
+          React.createElement("div", { className: "pt-3 sm:pt-4" },
+            React.createElement("button", { type: "submit", className: "w-full bg-[#25D366] hover:bg-[#20ba5a] text-white py-3.5 sm:py-4 rounded-2xl text-xs uppercase tracking-[0.2em] sm:tracking-[0.25em] font-medium shadow-xl transition-all flex items-center justify-center gap-3 cursor-pointer" },
+              React.createElement(Icon, { name: "whatsapp", className: "w-5 h-5" }),
+              React.createElement("span", { className: "hidden sm:inline" }, "Enviar pedido por WhatsApp"),
+              React.createElement("span", { className: "sm:hidden" }, "Enviar por WhatsApp")
+            )
+          )
+        )
+      )
+    ),
+    React.createElement("a", { href: `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=Hola%20${CONFIG.BUSINESS_NAME},%20quiero%20m\xE1s%20informaci\xF3n`, target: "_blank", rel: "noopener noreferrer", className: "floating-wa", "aria-label": "Contactar por WhatsApp" },
+      React.createElement(Icon, { name: "whatsapp", className: "" })
+    ),
+    React.createElement("footer", { className: "bg-[#181818] text-[#f4f1ea] pt-16 sm:pt-20 pb-10 sm:pb-12 mt-20 sm:mt-28 border-t border-[#2a2a2a]" },
+      React.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 pb-12 sm:pb-16 border-t border-[#2a2a2a] pt-10 sm:pt-12" },
+        React.createElement("div", { className: "space-y-4" },
+          React.createElement("h3", { className: "font-serif text-2xl tracking-wider" }, CONFIG.BUSINESS_NAME),
+          React.createElement("p", { className: "text-xs text-[#aaa] font-light leading-relaxed" }, CONFIG.TAGLINE, " Regalos rom\xE1nticos, rosas eternas y bolsos de perlas."),
+          React.createElement("p", { className: "text-xs text-[#d4af37] font-medium" }, "Env\xEDos exclusivamente en ", CONFIG.CITY, ", ", CONFIG.DEPARTMENT, ", ", CONFIG.COUNTRY, ".")
+        ),
+        React.createElement("div", { className: "space-y-3" },
+          React.createElement("h4", { className: "font-semibold text-xs tracking-[0.2em] uppercase text-white" }, "Navegaci\xF3n"),
+          React.createElement("ul", { className: "space-y-2.5 text-xs text-[#aaa] font-light" },
+            React.createElement("li", null, React.createElement("button", { onClick: () => setActiveTab("home"), className: "hover:text-white transition-colors" }, "Inicio")),
+            React.createElement("li", null, React.createElement("button", { onClick: () => { setActiveTab("catalog"); setSelectedCategory("rosas"); }, className: "hover:text-white transition-colors" }, "Rosas")),
+            React.createElement("li", null, React.createElement("button", { onClick: () => { setActiveTab("catalog"); setSelectedCategory("bolsos"); }, className: "hover:text-white transition-colors" }, "Bolsos de Perlas")),
+            React.createElement("li", null, React.createElement("button", { onClick: () => setActiveTab("about"), className: "hover:text-white transition-colors" }, "Nosotros"))
+          )
+        ),
+        React.createElement("div", { className: "space-y-3" },
+          React.createElement("h4", { className: "font-semibold text-xs tracking-[0.2em] uppercase text-white" }, "Informaci\xF3n & Contacto"),
+          React.createElement("ul", { className: "space-y-2.5 text-xs text-[#aaa] font-light break-words" },
+            React.createElement("li", null, React.createElement("button", { onClick: () => setActiveTab("shipping"), className: "hover:text-white transition-colors" }, "Env\xEDos en ", CONFIG.CITY)),
+            React.createElement("li", null, React.createElement("span", { className: "text-white" }, "Horario:"), " ", CONFIG.BUSINESS_HOURS),
+            React.createElement("li", null, React.createElement("span", { className: "text-white" }, "WhatsApp:"), " ", CONFIG.WHATSAPP_DISPLAY),
+            React.createElement("li", null, React.createElement("span", { className: "text-white" }, "Email:"), " ", CONFIG.EMAIL),
+            React.createElement("li", null, React.createElement("span", { className: "text-white" }, "Instagram:"), " ", CONFIG.INSTAGRAM_HANDLE)
+          )
+        ),
+        React.createElement("div", { className: "space-y-3" },
+          React.createElement("h4", { className: "font-semibold text-xs tracking-[0.2em] uppercase text-white" }, "Pol\xEDticas"),
+          React.createElement("ul", { className: "space-y-2.5 text-xs text-[#aaa] font-light" },
+            React.createElement("li", null, "Pol\xEDtica de Privacidad"),
+            React.createElement("li", null, "T\xE9rminos y Condiciones"),
+            React.createElement("li", null, "Garant\xEDa de Frescura")
+          )
+        )
+      ),
+      React.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#888] font-light border-t border-[#2a2a2a] gap-2", style: { paddingBottom: "env(safe-area-inset-bottom, 0px)" } },
+        React.createElement("p", null, "\xA9 ", (new Date()).getFullYear(), " ", CONFIG.BUSINESS_NAME, ". Todos los derechos reservados."),
+        React.createElement("p", { className: "text-center sm:text-right" }, CONFIG.TAGLINE, " | ", CONFIG.CITY, ", ", CONFIG.DEPARTMENT, " \u{1F338}")
+      )
+    )
+  );
+}
+function AppWrapper() {
+  return React.createElement(ErrorBoundary, null, React.createElement(App, null));
+}
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(React.createElement(AppWrapper, null));
+</script>
+</body>
+</html>
